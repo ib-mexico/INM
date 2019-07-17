@@ -12,5 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+})->name('index');
+
+
+Route::group([ 'prefix' => 'sites' ], function () {
+    
+    Route::get('/', 'SitesController@index')->name('index.sites');
+    Route::get('/formulario/{id_empresa}', 'SitesController@form')->name('index.formulario');
 });
