@@ -14,7 +14,7 @@ class CreateRequisitionsTable extends Migration
     public function up()
     {
         Schema::create('requisitions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id_requisition');
             
             $table->unsignedBigInteger('id_user');
 
@@ -31,8 +31,8 @@ class CreateRequisitionsTable extends Migration
         });
 
         Schema::table('requisitions', function ($table){
-            $table->foreign('id_user')->references('id')->on('users');
-            $table->foreign('id_site')->references('id')->on('sites');
+            $table->foreign('id_user')->references('id_user')->on('users');
+            $table->foreign('id_site')->references('id_site')->on('sites');
         });
     }
 

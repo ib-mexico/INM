@@ -14,7 +14,7 @@ class CreateRequisitionDataTable extends Migration
     public function up()
     {
         Schema::create('requisition_data', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id_requisition_data');
                    
             $table->unsignedBigInteger('id_requisition');
             $table->unsignedBigInteger('id_requisition_cat'); 
@@ -28,8 +28,8 @@ class CreateRequisitionDataTable extends Migration
         });
 
         Schema::table('requisition_data', function ($table){
-            $table->foreign('id_requisition')->references('id')->on('requisitions');
-            $table->foreign('id_requisition_cat')->references('id')->on('requisition_cats');
+            $table->foreign('id_requisition')->references('id_requisition')->on('requisitions');
+            $table->foreign('id_requisition_cat')->references('id_requisition_cat')->on('requisition_cats');
         });
     }
 
