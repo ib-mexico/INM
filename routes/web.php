@@ -19,5 +19,5 @@ Route::get('/', function () {
 Route::group([ 'prefix' => 'sites' ], function () {
     
     Route::get('/', 'SitesController@index')->name('index.sites');
-    Route::get('/formulario/{id_empresa}', 'SitesController@form')->name('index.formulario');
+    Route::get('/formulario/{id_empresa}', 'SitesController@formulario')->name('index.formulario');
 });

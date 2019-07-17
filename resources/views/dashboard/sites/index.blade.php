@@ -13,7 +13,7 @@
             <div class="list-group">
 
                 @foreach ($sitios as $sitio)
-                    <a href="{{ route('index.formulario', $sitio->id) }}" class="list-group-item">
+                    <a href="{{ route('index.formulario', $sitio->id_site) }}" class="list-group-item">
                         <i class="fa fa-fw fa-circle"></i> {{ $sitio->name }}
                     </a>
                 @endforeach
