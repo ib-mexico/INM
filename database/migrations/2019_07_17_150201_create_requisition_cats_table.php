@@ -14,7 +14,7 @@ class CreateRequisitionCatsTable extends Migration
     public function up()
     {
         Schema::create('requisition_cats', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id_requisition_cat');
 
             $table->string('name', 100);
 

@@ -14,7 +14,7 @@ class CreateRequisitionMediaTable extends Migration
     public function up()
     {
         Schema::create('requisition_media', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id_requisition_media');
 
             $table->unsignedBigInteger('id_requisition');
             $table->unsignedBigInteger('created_id_user');
@@ -26,8 +26,8 @@ class CreateRequisitionMediaTable extends Migration
         });
 
         Schema::table('requisition_media', function ($table){
-            $table->foreign('id_requisition')->references('id')->on('requisitions');
-            $table->foreign('created_id_user')->references('id')->on('users');
+            $table->foreign('id_requisition')->references('id_requisition')->on('requisitions');
+            $table->foreign('created_id_user')->references('id_user')->on('users');
         });
     }
 

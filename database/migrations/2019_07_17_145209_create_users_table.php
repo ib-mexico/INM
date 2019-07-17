@@ -14,8 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-
+            $table->bigIncrements('id_user');
 
             $table->string('user', 100);
             $table->string('email', 100)->unique();
@@ -24,14 +23,13 @@ class CreateUsersTable extends Migration
             $table->string('name', 100);
             $table->rememberToken();
 
-            
             $table->unsignedBigInteger('id_entity');
 
             $table->dateTime('created_at');
         });
 
         Schema::table('users', function ($table){
-            $table->foreign('id_entity')->references('id')->on('entities');
+            $table->foreign('id_entity')->references('id_entity')->on('entities');
         });
     }
 

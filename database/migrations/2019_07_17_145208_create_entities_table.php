@@ -14,7 +14,7 @@ class CreateEntitiesTable extends Migration
     public function up()
     {
         Schema::create('entities', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id_entity');
 
             $table->string('entity');
 
