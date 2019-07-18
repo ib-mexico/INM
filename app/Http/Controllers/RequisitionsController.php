@@ -13,6 +13,11 @@ use Auth;
 
 class RequisitionsController extends Controller
 {
+    public function index() {
+        $lstRequisitions = Requisition::get();
+        return view('dashboard.requisitions.Index', ['lstRequisitions' => $lstRequisitions]);
+    }
+
     public function store(Request $request) {
 
         $objReturn = new ActionReturn('panel/sitios/formulario/' . $request->id_site, 'panel/sitios');
