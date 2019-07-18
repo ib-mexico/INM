@@ -1,13 +1,16 @@
 function mostrarCampos(id_check){
 
-var checkBox = document.getElementById("check"+id_check);
-var text = document.getElementById("contenido"+id_check);
+    var checkBox = $('#check'+id_check)
+    var text = $('#contenido'+id_check)
 
-
-    if (checkBox.checked == true){
-        text.style.display = "block";
+    if (checkBox.is(':checked')){
+        text.css('display', 'block')
+        calcularSubtotal(id_check)
+        calcularTotal(id_check)
     } else {
-        text.style.display = "none";
+        text.css('display', 'none')
+        SubtotalCero(id_check)
+        calcularTotal(id_check)
     }
 }
 
@@ -16,34 +19,28 @@ function agregarCampos(id_requision){
     rows = parseInt($('#contenido'+id_requision).data('rows')) + 1;
 
     campos = '<div class="form-group col-md-12" id="campo'+rows+'">'+
-                 '<div class="col-md-2"><label>Cantidad:</label><input class="form-control" type="number" name="cantidad'+id_requision+'[]"></div>'+
-                '<div class="col-md-4"><label>Numero de partes: </label><input class="form-control" type="text" name="n_partes'+id_requision+'[]" autocomplete="off"></div>'+
-                '<div class="col-md-5"><label>Descripción: </label><input class="form-control" type="text" name="descripcion'+id_requision+'[]" autocomplete="off"></div>'+
-                '<div class="col-md-1" style="margin-top: 25px;"><a class="btn btn-danger" onclick="elimniarCampos('+rows+')" href="javascript:void(0)"><i class="fas fa-times"></i></a></div></div>';
+                '<div class="col-md-2"><input class="form-control" type="number" name="cantidad'+id_requision+'[]"></div>'+
+                '<div class="col-md-2"><input class="form-control precio precio'+id_requision+'" value="" type="number" name="precio'+id_requision+'[]" autocomplete="off"></div>'+
+                '<div class="col-md-3"><input class="form-control" type="text" name="n_partes'+id_requision+'[]" autocomplete="off"></div>'+
+                '<div class="col-md-4"><input class="form-control" type="text" name="descripcion'+id_requision+'[]" autocomplete="off"></div>'+
+                '<div class="col-md-1" ><a class="btn btn-danger" onclick="elimniarCampos('+rows+')" href="javascript:void(0)"><i class="fas fa-times"></i></a></div></div>';
 
     $('#contenido' + id_requision).append(campos);
     $('#contenido'+id_requision).data('rows', rows);
 }
 
 function elimniarCampos(id_campo){
-    $('#campo'+id_campo).remove();
-}
+
+    $('#campo'+id_campo+'> .precio').val(0);
+
+    //$('#campo'+id_campo).remove();
 
 
-$(document).on('click', '.anterior', function(){
-    anterior()
-})
-
-function verificar(){
-    console.log(id_pregunta)
-    if(id_pregunta == 1){
-        $('.anterior').css('display', 'none');
-    }
 }
 
 function anterior(id_pregunta){
-    console.log(id_pregunta)
-  
+    var num_preguntas = parseInt($('form').data('rows'));
+
     if(id_pregunta == 1){
         alert('Se encuentra en la primera pregunta.');
     }else{
@@ -51,21 +48,85 @@ function anterior(id_pregunta){
         id_pregunta -= 1;
         $('#pregunta'+id_pregunta).css('display', 'block')
     }
+
+    if(id_pregunta != num_preguntas){
+        $('.siguiente').css('display', 'inline-block')
+        $('.guardar').css('display', 'none')
+    }
 }
 
 function siguiente(id_pregunta){
-    numero = id_pregunta + 1;
-    console.log(numero)
+    var num_preguntas = parseInt($('form').data('rows'));
 
-    var validacion = $('#pregunta'+numero)
+    if(num_preguntas == (id_pregunta + 1)){
+        $('#pregunta'+id_pregunta).css('display', 'none')
+        id_pregunta += 1;
+        $('#pregunta'+id_pregunta).css('display', 'block')
 
-    if(validacion == null){
-        $('.anterior').css('display', 'none')
         $('.siguiente').css('display', 'none')
-        alert('Se encuentra en al ultima pregunta')
+
+        $('.btn_navegacion').append('<button class="btn btn-success guardar" type="submit" >Guardar</button>')
     }else{
         $('#pregunta'+id_pregunta).css('display', 'none')
         id_pregunta += 1;
         $('#pregunta'+id_pregunta).css('display', 'block')
     }
 }
+
+function calcularTotal(total_preguntas){
+    var preguntas = parseInt($('form').data('rows'))
+    var total = 0
+
+    for (let index = 1; index <= preguntas; index++) {
+        calcularSubtotal(index)
+
+        total += calcularSubtotal(index)
+    }
+
+    $('#total').html(total)
+}
+
+function calcularSubtotal(id_pregunta){
+    var subtotales = $('.precio'+id_pregunta)
+    var precio = 0
+    var subtotal = 0
+    var checkBox = $('#check'+id_pregunta)
+
+    if (checkBox.is(':checked')){
+
+        for (let index = 0; index < subtotales.length; index++) {
+
+            if (subtotales[index].value == 0) {
+                precio = 0
+            }else{
+                precio = parseInt(subtotales[index].value)
+            }
+
+            subtotal += precio;
+
+            $('#subtotal'+id_pregunta).html(subtotal)
+        }
+    }
+
+    return subtotal
+}
+
+function SubtotalCero(id_pregunta){
+    var subtotales = $('.precio'+id_pregunta)
+        
+    $('#subtotal'+id_pregunta).html('0')
+}
+
+$(document).on('change', '.precio', function (){
+
+    var preguntas = parseInt($('form').data('rows'))
+    var total = 0
+
+    for (let index = 1; index <= preguntas; index++) {
+        calcularSubtotal(index)
+
+        total += calcularSubtotal(index)
+    }
+
+    calcularTotal(preguntas)   
+})

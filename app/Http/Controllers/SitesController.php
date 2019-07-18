@@ -16,11 +16,11 @@ class SitesController extends Controller
     public function formulario($id_empresa){
         $empresa = Site::where('id_site', '=', $id_empresa)->first();
         $requisiones = RequisitionCat::all();
-        $requisiones_count = DB::table('requisition_cats')->get()->count();
+        $requisionesCount = DB::table('requisition_cats')->get()->count();
 
         return view('dashboard.sites.Formulario', ['requisiciones'      => $requisiones,
                                                     'sitio'             => $empresa,
-                                                    'num_requisiciones' => $requisiones_count]);
+                                                    'num_requisiciones' => $requisionesCount]);
     }
 
 }
