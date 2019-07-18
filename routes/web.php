@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/', 'LoginController@index');
+Route::post('/login-panel', ['as' => 'login-panel', 'uses' => 'LoginController@access']);
+Route::get('/logout-panel', 'LoginController@logout');
 
-
-Route::group([ 'prefix' => 'sites' ], function () {
+Route::group([ 'prefix' => 'panel',
+               'middleware' => 'auth' ], function () {
     
-    Route::get('/', 'SitesController@index')->name('index.sites');
-    Route::get('/formulario/{id_empresa}', 'SitesController@formulario')->name('index.formulario');
+    Route::get('sitios', 'SitesController@index')->name('sites');
+    Route::get('sitios/formulario/{id_site}', 'SitesController@formulario')->name('sites.formulario');
 });

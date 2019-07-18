@@ -4,7 +4,6 @@
 @section('sub_pagina', '/ '.$sitio->name)
 
 @section('body')
-    {{ dd($num_requisiciones) }}
     <form action="#">
     @foreach ($requisiciones as $requisicion)
 

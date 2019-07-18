@@ -240,10 +240,10 @@
             <ul class="nav" id="main-menu">
 
                 <li>
-                    <a href="{{ route('index') }}"><i class="fa fa-home"></i> Inicio</a>
+                    <a href="#"><i class="fa fa-home"></i> Inicio</a>
                 </li>
                 <li>
-                    <a href="{{ route('index.sites') }}"><i class="fa fa-building"></i> Empresas</a>
+                    <a href="{{ route('sites') }}"><i class="fa fa-building"></i> Sitios</a>
                 </li>
                 <!--li>
                     <a href="ui-elements.html"><i class="fa fa-desktop"></i> UI Elements</a>

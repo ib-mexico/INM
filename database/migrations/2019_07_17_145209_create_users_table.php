@@ -31,6 +31,27 @@ class CreateUsersTable extends Migration
         Schema::table('users', function ($table){
             $table->foreign('id_entity')->references('id_entity')->on('entities');
         });
+
+        //NEW ROW
+        DB::statement("INSERT INTO
+                users
+            (
+                id_user, 
+                user, 
+                email,
+                password,
+                name,
+                id_entity,
+                created_at
+            ) VALUES (
+                1, 
+                'admin', 
+                'jorge.cortes@ib-mexico.com',
+                '" . bcrypt('1234567890') . "',
+                'Usuario de Prueba',
+                1,
+                NOW()
+            )");  
     }
 
     /**

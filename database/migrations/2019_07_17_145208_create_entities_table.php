@@ -20,6 +20,19 @@ class CreateEntitiesTable extends Migration
 
             $table->dateTime('created_at');
         });
+
+        //NEW ROW
+        DB::statement("INSERT INTO
+                entities
+            (
+                id_entity, 
+                entity, 
+                created_at
+            ) VALUES (
+                1, 
+                'IB-Mexico',
+                NOW()
+            )"); 
     }
 
     /**

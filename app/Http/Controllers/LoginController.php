@@ -22,7 +22,7 @@ class LoginController extends Controller
         if(Auth::attempt([  'user'      => $request['user'], 
                             'password'  => $request['password']])) {
             
-           return Redirect('/panel');
+           return Redirect('/panel/sitios');
         } else {
             Session::flash("login_error_title", Errors::LOGIN_01_TITLE);
             Session::flash("login_error_message", Errors::LOGIN_01_MESSAGE);
