@@ -20,6 +20,16 @@ class CreateRequisitionCatsTable extends Migration
 
             $table->dateTime('created_at');
         });
+
+        DB::statement("INSERT INTO
+            requisition_cats
+        (id_entity, entity, created_at)
+        VALUES (1, 'instalación eléctrica', NOW()),
+        VALUES (2, 'puerta de acceso', NOW()),
+        VALUES (3, 'sistema de puesta tierra', NOW()),
+        VALUES (4, 'punta de para-rayo', NOW()),
+        VALUES (5, 'supresor de picos clase a', NOW()),
+        VALUES (6, 'supresor de picos clase b', NOW())");
     }
 
     /**
