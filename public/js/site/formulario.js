@@ -7,7 +7,9 @@ function mostrarCampos(id_check){
         text.css('display', 'block')
         calcularSubtotal(id_check)
         calcularTotal(id_check)
+        habilitarCampos(id_check)
     } else {
+        deshabilitarCampos(id_check)
         text.css('display', 'none')
         SubtotalCero(id_check)
         calcularTotal(id_check)
@@ -19,23 +21,21 @@ function agregarCampos(id_requision){
     rows = parseInt($('#contenido'+id_requision).data('rows')) + 1;
 
     campos = '<div class="form-group col-md-12" id="campo'+rows+'">'+
-                '<div class="col-md-2"><input class="form-control" type="number" name="cantidad'+id_requision+'[]"></div>'+
-                '<div class="col-md-2"><input class="form-control precio precio'+id_requision+'" value="" type="number" name="precio'+id_requision+'[]" autocomplete="off"></div>'+
-                '<div class="col-md-3"><input class="form-control" type="text" name="n_partes'+id_requision+'[]" autocomplete="off"></div>'+
-                '<div class="col-md-4"><input class="form-control" type="text" name="descripcion'+id_requision+'[]" autocomplete="off"></div>'+
-                '<div class="col-md-1" ><a class="btn btn-danger" onclick="elimniarCampos('+rows+')" href="javascript:void(0)"><i class="fas fa-times"></i></a></div></div>';
+        '<div class="col-md-2"><input class="form-control" min="0" type="number" name="cantidad'+id_requision+'[]"></div>'+
+        '<div class="col-md-2"><input class="form-control precio precio'+id_requision+'" min="0" type="number" name="precio'+id_requision+'[]" autocomplete="off"></div>'+
+        '<div class="col-md-3"><input class="form-control" type="text" name="n_partes'+id_requision+'[]" autocomplete="off"></div>'+
+        '<div class="col-md-4"><input class="form-control" type="text" name="descripcion'+id_requision+'[]" autocomplete="off"></div>'+
+        '<div class="col-md-1" ><a class="btn btn-danger" onclick="elimniarCampos('+rows+', '+id_requision+')" href="javascript:void(0)"><i class="fas fa-times"></i></a></div></div>';
 
     $('#contenido' + id_requision).append(campos);
     $('#contenido'+id_requision).data('rows', rows);
 }
 
-function elimniarCampos(id_campo){
+function elimniarCampos(id_campo, id_pregunta){
+    $('#campo'+id_campo).remove();
 
-    $('#campo'+id_campo+'> .precio').val(0);
-
-    //$('#campo'+id_campo).remove();
-
-
+    calcularTotal()
+    calcularSubtotal(id_pregunta)
 }
 
 function anterior(id_pregunta){
@@ -73,7 +73,8 @@ function siguiente(id_pregunta){
     }
 }
 
-function calcularTotal(total_preguntas){
+function calcularTotal(){
+
     var preguntas = parseInt($('form').data('rows'))
     var total = 0
 
@@ -128,5 +129,14 @@ $(document).on('change', '.precio', function (){
         total += calcularSubtotal(index)
     }
 
-    calcularTotal(preguntas)   
+    calcularTotal()   
 })
+
+function deshabilitarCampos(id_pregunta){
+    $('#contenido'+id_pregunta+'>div>div>input').prop('disabled', true)
+}
+
+
+function habilitarCampos(id_pregunta){
+    $('#contenido'+id_pregunta+'>div>div>input').prop('disabled', false)
+}

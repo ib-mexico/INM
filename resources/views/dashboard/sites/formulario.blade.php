@@ -9,7 +9,9 @@
 
 @section('body')
     <form action="#" data-rows="{{ $num_requisiciones }}">
-    <input type="hidden" value="{{ $sitio->id_site }}" name="id_empresa">
+    <input type="hidden" value="{{ $sitio->id_site }}" name="id_site">
+
+    <input type="text" value="hola" id="uno">
 
     @foreach ($requisiciones as $requisicion)
 
@@ -28,17 +30,15 @@
                 </div>
             </div>
 
-            
-
             <div id="contenido{{ $requisicion->id_requisition_cat }}" style="display: none; margin-bottom: 120px;" data-rows="1">
                 <div class="form-group col-md-12">
                     <div class="col-md-2">
                         <label>Cantidad: </label>
-                        <input class="form-control" type="number" name="cantidad{{ $requisicion->id_requisition_cat }}[]">
+                        <input class="form-control" type="number" min="0" name="cantidad{{ $requisicion->id_requisition_cat }}[]">
                     </div>
                     <div class="col-md-2">
                         <label>Precio: </label>
-                        <input class="form-control precio{{ $requisicion->id_requisition_cat }} precio" value="" type="number" name="precio{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
+                        <input class="form-control precio{{ $requisicion->id_requisition_cat }} precio" min="0" value="" type="number" name="precio{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
                     </div>
                     <div class="col-md-3">
                         <label>Numero de partes: </label>
