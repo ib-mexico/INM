@@ -20,4 +20,6 @@ Route::group([ 'prefix' => 'panel',
     
     Route::get('sitios', 'SitesController@index')->name('sites');
     Route::get('sitios/formulario/{id_site}', 'SitesController@formulario')->name('sites.formulario');
+    
+    Route::post('requisicion/registrar', ['as' => 'new-requisition', 'uses' => 'RequisitionsController@store']);
 });

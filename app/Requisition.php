@@ -8,6 +8,7 @@ class Requisition extends Model
 {
     protected $table = 'requisitions';
     protected $primaryKey = 'id_requisition';
+    public $timestamps = false;
 
     protected $fillable = [
         'bool_ins_elec', 'bool_ins_phy_earth', 'bool_ins_grounding', 'bool_ins_lighting', 'bool_ins_supressor_A',

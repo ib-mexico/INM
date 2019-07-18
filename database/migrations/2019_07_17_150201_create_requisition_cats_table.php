@@ -23,13 +23,14 @@ class CreateRequisitionCatsTable extends Migration
 
         DB::statement("INSERT INTO
             requisition_cats
-        (id_entity, entity, created_at)
-        VALUES (1, 'instalación eléctrica', NOW()),
-        VALUES (2, 'puerta de acceso', NOW()),
-        VALUES (3, 'sistema de puesta tierra', NOW()),
-        VALUES (4, 'punta de para-rayo', NOW()),
-        VALUES (5, 'supresor de picos clase a', NOW()),
-        VALUES (6, 'supresor de picos clase b', NOW())");
+                (id_requisition_cat, name, created_at)
+            VALUES
+                (1, 'Instalación Eléctrica', NOW()),
+                (2, 'Tierra Física', NOW()),
+                (3, 'Sistema de Puesta Tierra', NOW()),
+                (4, 'Punta de Pararrayos', NOW()),
+                (5, 'Supresor de Picos Clase A', NOW()),
+                (6, 'Supresor de Picos Clase B', NOW())");
     }
 
     /**
