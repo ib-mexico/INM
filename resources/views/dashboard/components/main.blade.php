@@ -10,7 +10,6 @@
         @section('css')
             
         @show
-
 </head>
 <body>
 

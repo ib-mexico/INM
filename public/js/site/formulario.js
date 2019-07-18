@@ -62,7 +62,7 @@ function siguiente(id_pregunta){
     if(validacion == null){
         $('.anterior').css('display', 'none')
         $('.siguiente').css('display', 'none')
-        alert('Se encuentra en al primera pregunta')
+        alert('Se encuentra en al ultima pregunta')
     }else{
         $('#pregunta'+id_pregunta).css('display', 'none')
         id_pregunta += 1;

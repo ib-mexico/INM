@@ -6,7 +6,7 @@
 @section('body')
 
 <div class="col-md-12">
-    <!--a href="" class="btn btn-primary">asdasdasd</a-->
+    
 </div>
 
 @endsection

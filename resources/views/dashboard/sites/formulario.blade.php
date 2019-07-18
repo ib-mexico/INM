@@ -4,11 +4,11 @@
 @section('sub_pagina', '/ '.$sitio->name)
 
 @section('body')
-
+    {{ dd($num_requisiciones) }}
     <form action="#">
     @foreach ($requisiciones as $requisicion)
 
-        <div class="col-md-12" id="pregunta{{ $requisicion->id_requisition_cat }}" @if ($requisicion->id_requisition_cat != 1) style="display: none" @endif >
+        <div class="col-md-12" data-rows="{{ $requisicion->num_requisiciones }}"id="pregunta{{ $requisicion->id_requisition_cat }}" @if ($requisicion->id_requisition_cat != 1) style="display: none" @endif >
             <div class="form-group">
                 <h4>¿Requiere {{ $requisicion->name }}?</h4>
                 <div class="checkbox">
@@ -43,7 +43,6 @@
         </div>
     @endforeach
         
-    
     <form>
 @endsection
 
