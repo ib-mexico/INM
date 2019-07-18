@@ -68,6 +68,10 @@ class Errors {
 	const USUARIOS_EDIT_04_TITLE = "Error de modificación.";
 	const USUARIOS_EDIT_04_MESSAGE = "Las contraseñas no coinciden. Verifique la información.";
 	
+	//REQUISICIONES
+	const REQUISICIONES_CREATE_01_ID = "4_0001";
+	const REQUISICIONES_CREATE_01_TITLE = "Error de nuevo registro.";
+	const REQUISICIONES_CREATE_01_MESSAGE = "Los datos de la requisición no s pudieron ingresar. Verifique la información.";
 }
 
 ?>

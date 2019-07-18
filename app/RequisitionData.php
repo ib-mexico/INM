@@ -8,6 +8,7 @@ class RequisitionData extends Model
 {
     protected $table = 'requisition_data';
     protected $primaryKey = 'id_requisition_data';
+    public $timestamps = false;
 
     protected $fillable = [
         'quantity', 'part_number', 'description', 'price', 'created_at', 'id_requisition_cat'
@@ -24,7 +25,7 @@ class RequisitionData extends Model
     }
 
     public function create(array $options = array()) {
-        if( $this['id_requisition_cat'] === null) {
+        if( $this['id_requisition_data'] === null) {
             $this['created_at'] = date('Y-m-d H:i:s');
             return parent::save($options);
         } else {

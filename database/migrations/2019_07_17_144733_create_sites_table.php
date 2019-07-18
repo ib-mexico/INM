@@ -23,16 +23,16 @@ class CreateSitesTable extends Migration
             
         });
 
-        Schema::statement("INSERT INTO
+        DB::statement("INSERT INTO
             sites
-        (
-            id_site, name, latitude, longitude, created_at
-        ) 
-            VALUES (1, 'IB-México', '15.12312', '-19.23123', NOW())
-            VALUES (2, 'r2a México', '15.12312', '-19.23123', NOW())
-            VALUES (3, 'Innovare', '15.12312', '-19.23123', NOW())
-            VALUES (4, 'UCA Soluciones', '15.12312', '-19.23123', NOW())
-
+                (
+                    id_site, name, latitude, longitude, created_at
+                ) 
+            VALUES 
+                (1, 'Villahermosa', '15.12312', '-19.23123', NOW()),
+                (2, 'Chiapas', '15.12312', '-19.23123', NOW()),
+                (3, 'Veracruz', '15.12312', '-19.23123', NOW()),
+                (4, 'Campeche', '15.12312', '-19.23123', NOW())
         ");
 
     }
