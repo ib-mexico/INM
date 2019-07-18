@@ -28,28 +28,30 @@
                     </div>
                 </div>
 
-            <div id="contenido{{ $requisicion->id_requisition_cat }}" style="display: none; margin-bottom: 120px;" data-rows="1">
-                <div class="form-group col-md-12">
-                    <div class="col-md-2">
-                        <label>Cantidad: </label>
-                        <input class="form-control" type="number" min="0" name="cantidad{{ $requisicion->id_requisition_cat }}[]">
-                    </div>
-                    <div class="col-md-2">
-                        <label>Precio: </label>
-                        <input class="form-control precio{{ $requisicion->id_requisition_cat }} precio" min="0" value="" type="number" name="precio{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
-                    </div>
-                    <div class="col-md-3">
-                        <label>Numero de partes: </label>
-                        <input class="form-control" type="text" name="n_partes{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
-                    </div>
-                    <div class="col-md-4">
-                        <label>Descripci&oacute;n: </label>
-                        <input class="form-control" type="text" name="descripcion{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
-                    </div>
-                    <div class="col-md-1" style="margin-top: 25px;">
-                        <a href="javascript:void(0)" class="btn btn-default" onclick="agregarCampos({{ $requisicion->id_requisition_cat }})" >+</a>
+                <div id="contenido{{ $requisicion->id_requisition_cat }}" style="display: none; margin-bottom: 120px;" data-rows="1">
+                    <div class="form-group col-md-12">
+                        <div class="col-md-2">
+                            <label>Cantidad: </label>
+                            <input class="form-control" type="number" min="0" name="cantidad{{ $requisicion->id_requisition_cat }}[]">
+                        </div>
+                        <div class="col-md-2">
+                            <label>Precio: </label>
+                            <input class="form-control precio{{ $requisicion->id_requisition_cat }} precio" min="0" value="" type="number" name="precio{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Numero de partes: </label>
+                            <input class="form-control" type="text" name="n_partes{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Descripci&oacute;n: </label>
+                            <input class="form-control" type="text" name="descripcion{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
+                        </div>
+                        <div class="col-md-1" style="margin-top: 25px;">
+                            <a href="javascript:void(0)" class="btn btn-default" onclick="agregarCampos({{ $requisicion->id_requisition_cat }})" >+</a>
+                        </div>
                     </div>
                 </div>
+                 
                 <div class="col-md-12 btn_navegacion text-right">
                     <a href="javascript:void(0)" class="btn btn-default anterior" onclick="anterior({{ $requisicion->id_requisition_cat }})">Anterior</a>
                     <a href="javascript:void(0)" class="btn btn-default siguiente" onclick="siguiente({{ $requisicion->id_requisition_cat }})">Siguiente</a>

@@ -15,9 +15,7 @@ class RequisitionsController extends Controller
 {
     public function store(Request $request) {
 
-        //dd($request);
-
-        $objReturn = new ActionReturn('panel/sitios/formulario' . $request->id_site, 'panel/sitios');
+        $objReturn = new ActionReturn('panel/sitios/formulario/' . $request->id_site, 'panel/sitios');
         $requisionesCat = RequisitionCat::all();
         
         try {
@@ -55,13 +53,13 @@ class RequisitionsController extends Controller
             }
 
                 if($objRequisition->create()) {
-                    for($i = 1; $i < sizeof($requisionesCat); $i++) {                        
-                        for($j = 0; $i < sizeof($request['cantidad'].$i); $i++) {
+                    for($i = 1; $i < sizeof($requisionesCat); $i++) {
+                        for($j = 0; $j < sizeof($request['cantidad'.$i]); $j++) {
                             if(isset($request['cantidad'.$i][$j])) {
                                 $objData                    = new RequisitionData();
                                 $objData->id_requisition    = $objRequisition->id_requisition;
                                 $objData->quantity          = $request['cantidad'.$i][$j];
-                                $objData->part_number       = $request['n_parte'.$i][$j];
+                                $objData->part_number       = $request['n_partes'.$i][$j];
                                 $objData->description       = $request['descripcion'.$i][$j];
                                 $objData->price             = $request['precio'.$i][$j];
                                 $objData->id_requisition_cat = $i;
@@ -72,6 +70,8 @@ class RequisitionsController extends Controller
                             }
                         }
                     }
+
+                    $objReturn->setResult(true, Messages::REQUISICIONES_CREATE_01_TITLE, Messages::REQUISICIONES_CREATE_01_MESSAGE);
                 } else {
                     $objReturn->setResult(false, Errors::REQUISICIONES_CREATE_01_TITLE, Errors::REQUISICIONES_CREATE_01_MESSAGE);
                 }
