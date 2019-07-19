@@ -10,6 +10,7 @@ use App\RequisitionCat;
 use App\Requisition;
 use App\RequisitionData;
 use Auth;
+use PDF;
 
 class RequisitionsController extends Controller
 {
@@ -82,8 +83,45 @@ class RequisitionsController extends Controller
                 }
             } catch(Exception $exception) { $objReturn->setResult(false, Errors::getErrors($exception->getCode())['title'], Errors::getErrors($exception->getCode())['message']); }
 
-            return $objReturn->getRedirectPath();
-        }
-
+         return $objReturn->getRedirectPath();
     }
+
+    public function generatePDF($id_requisition) {
+    
+        $objRequisition = Requisition::where('id_requisition', $id_requisition)->first();
+    
+        if($objRequisition != null) {
+            $categories = array();
+            $lstRequisitionCat = RequisitionCat::all();
+    
+            foreach($lstRequisitionCat as $requisitionCat) {
+    
+                $lstRequisitionData = RequisitionData::where('id_requisition', $id_requisition)
+                                                    ->where('id_requisition_cat', $requisitionCat->id_requisition_cat)
+                                                    ->get();
+                
+                if(sizeof($lstRequisitionData) > 0) {
+                    array_push($categories, array(
+                        "id_requisition_cat"    => $requisitionCat->id_requisition_cat,
+                        "name"                  => $requisitionCat->name,
+                        "lstRequisitionData"    => $lstRequisitionData
+                    ));
+                }
+            }
+
+            $data = array(
+                "id_requisition"    => $objRequisition->id_requisition,
+                "id_user"           => $objRequisition->id_user,
+                "name_user"         => $objRequisition->user->name,
+                "id_site"           => $objRequisition->id_site,
+                "name_site"         => $objRequisition->site->name,
+                "categories"        => $categories
+            );
+    
+            $pdf = PDF::loadView('dashboard.reports.Requisition', ['data' => $data]);
+            return $pdf->stream();
+        }
+    }
+}
+
 

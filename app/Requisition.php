@@ -20,8 +20,8 @@ class Requisition extends Model
         return $this->belongsTo('App\User', 'id_user');
     }
 
-    public function entity() {
-        return $this->belongsTo('\App\Entity', 'id_entity');
+    public function site() {
+        return $this->belongsTo('\App\Site', 'id_site');
     }
 
     public function requisitionData() {
