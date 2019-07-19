@@ -21,7 +21,7 @@
     <!-- /. NAV SIDE  -->
     @include('dashboard.components.Nav-side')
 
-
+    
     <div id="page-wrapper" >
         <div id="page-inner">
             <div class="row page-header">
@@ -47,9 +47,9 @@
             <!-- /. ROW  -->
             <footer><p>All right reserved. Template by: <a href="http://webthemez.com">WebThemez</a></p></footer>
         </div>
-            <!-- /. PAGE INNER  -->
+        <!-- /. PAGE INNER  -->
     </div>
-        <!-- /. PAGE WRAPPER  -->
+    <!-- /. PAGE WRAPPER  -->
 </div>
     
 @include('dashboard.components.Js')

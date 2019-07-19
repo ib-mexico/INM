@@ -22,15 +22,15 @@ body, html {
 
 #page-wrapper {
     padding: 15px 15px;
-    height: 100%;
+    height: calc(100% - 60px);
     background: #FFFFFF;
-   
+    overflow-y: auto;
 }
 #page-inner {
     width:100%;
     margin:10px 20px 10px 0px;
-    background-color:transparent;
     padding:10px;
+
 }
 
 .text-center {
@@ -491,7 +491,7 @@ line-height: 1.428571429;
      #page-wrapper{
                margin: 0 0 0 260px;
         padding: 15px 30px;
-        height: 100%;
+        height: calc(100% - 60px);
     }
 	
 	
