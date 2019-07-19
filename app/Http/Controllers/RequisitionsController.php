@@ -59,7 +59,7 @@ class RequisitionsController extends Controller
             }
 
                 if($objRequisition->create()) {
-                    for($i = 1; $i < sizeof($requisionesCat); $i++) {
+                    for($i = 1; $i < sizeof($requisionesCat) + 1; $i++) {
                         for($j = 0; $j < sizeof($request['cantidad'.$i]); $j++) {
                             if(isset($request['cantidad'.$i][$j])) {
                                 $objData                    = new RequisitionData();
