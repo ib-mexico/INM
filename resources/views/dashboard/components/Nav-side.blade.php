@@ -9,11 +9,11 @@
                 <li>
                     <a href="{{ route('sites') }}"><i class="fa fa-building"></i> Sitios</a>
                 </li>
-                <!--li>
-                    <a href="ui-elements.html"><i class="fa fa-desktop"></i> UI Elements</a>
-                </li>
-
                 <li>
+                    <a href="{{ URL::to('panel/requisiciones') }}"><i class="fas fa-clipboard"></i> Requisiciones</a>
+                </li>
+              
+                <!--li>
                     <a href="#"><i class="fa fa-sitemap"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -39,10 +39,6 @@
 
                         </li>
                     </ul>
-                </li>
-
-                <li>
-                    <a class="active-menu" href="empty.html"><i class="fa fa-fw fa-file"></i> Empty Page</a>
                 </li-->
             </ul>
 

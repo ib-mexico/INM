@@ -1,6 +1,6 @@
 @extends('dashboard.components.main')
 
-@section('titulo', 'Empresas')
+@section('titulo', 'Sitios')
 
 @section('body')
 <div class="col-md-12">
@@ -13,7 +13,7 @@
             <div class="list-group">
 
                 @foreach ($sitios as $sitio)
-                    <a href="{{ route('sites.formulario', $sitio->id_site) }}" class="list-group-item">
+                    <a href="{{ route('sites.form', $sitio->id_site) }}" class="list-group-item">
                         <i class="fa fa-fw fa-circle"></i> {{ $sitio->name }}
                     </a>
                 @endforeach
