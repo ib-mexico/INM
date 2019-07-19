@@ -15,7 +15,16 @@ use PDF;
 class RequisitionsController extends Controller
 {
     public function index() {
-        $lstRequisitions = Requisition::get();
+        $lstRequisitions = Requisition::select(
+                                        'requisitions.id_requisition',
+                                        'sites.name AS site',
+                                        'users.name AS user',
+                                        'requisitions.created_at'
+                                    )
+                                    ->join('users', 'users.id_user', '=', 'requisitions.id_user')
+                                    ->join('sites', 'sites.id_site', '=', 'requisitions.id_site')
+                                    ->get();
+
         return view('dashboard.requisitions.Index', ['lstRequisitions' => $lstRequisitions]);
     }
 
@@ -115,6 +124,7 @@ class RequisitionsController extends Controller
                 "name_user"         => $objRequisition->user->name,
                 "id_site"           => $objRequisition->id_site,
                 "name_site"         => $objRequisition->site->name,
+                "created_at"        => $objRequisition->created_at,
                 "categories"        => $categories
             );
     

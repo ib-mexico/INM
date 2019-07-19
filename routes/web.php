@@ -19,7 +19,7 @@ Route::group([ 'prefix' => 'panel',
                'middleware' => 'auth' ], function () {
     
     Route::get('sitios', 'SitesController@index')->name('sites');
-    Route::get('sitios/formulario/{id_site}', 'SitesController@formulario')->name('sites.formulario');
+    Route::get('sitios/formulario/{id_site}', 'SitesController@formulario')->name('sites.form');
     
     Route::get('requisiciones', ['as' => 'requisitions', 'uses' => 'RequisitionsController@index']);
     Route::get('requisicion/{id_requisition}/pdf', 'RequisitionsController@generatePDF');

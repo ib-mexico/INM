@@ -17,7 +17,7 @@ class SitesController extends Controller
         $empresa = Site::where('id_site', $id_empresa)->first();
         $requisiones = RequisitionCat::all();
 
-        return view('dashboard.sites.Formulario', ['requisiciones'      => $requisiones,
+        return view('dashboard.sites.Form', ['requisiciones'      => $requisiones,
                                                     'sitio'             => $empresa,
                                                     'num_requisiciones' => sizeof($requisiones)]);
     }
