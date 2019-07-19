@@ -1,4 +1,4 @@
-@extends('dashboard.components.main')
+@extends('dashboard.components.Main')
 
 @section('titulo', 'Inicio')
 @section('sub_pagina', 'INM')

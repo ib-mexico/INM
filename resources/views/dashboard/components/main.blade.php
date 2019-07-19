@@ -6,7 +6,7 @@
 
         <title>INM - @yield('titulo')</title>
 
-        @include('dashboard.components.css')
+        @include('dashboard.components.Css')
         @section('css')
             
         @show
@@ -52,7 +52,7 @@
         <!-- /. PAGE WRAPPER  -->
 </div>
     
-@include('dashboard.components.js')
+@include('dashboard.components.Js')
 
 @section('js')
     
