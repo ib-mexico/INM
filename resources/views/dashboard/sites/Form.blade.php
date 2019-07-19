@@ -4,18 +4,17 @@
 @section('sub_pagina', '/ '.$sitio->name)
 
 @section('encabezado')
-    <h4>Total: $ <span id="total">0</span></h4>
+    <h4>Total: $ <span id="total">0.00</span></h4>
 @endsection
 
 @section('body')
     {!! Form::open(['route' => 'new-requisition', 'method' => 'POST' , 'id' => 'vehiculoForm', 'data-rows' => $num_requisiciones]) !!}
         <input type="hidden" value="{{ $sitio->id_site }}" name="id_site">
-        
         @foreach ($requisiciones as $requisicion)
 
-            <div class="col-md-12" id="pregunta{{ $requisicion->id_requisition_cat }}" {{--@if ($requisicion->id_requisition_cat != 1) style="display: none" @endif--}} >
-                <div class="form-group">
-                    <div class="col-md-9">
+            <div class="col-md-12" id="pregunta{{ $requisicion->id_requisition_cat }}" @if ($requisicion->id_requisition_cat != 1) style="display: none" @endif >
+                <div class="col-md-9">
+                    <div class="form-group">
                         <h4>¿Requiere {{ $requisicion->name }}?</h4>
                         <div class="checkbox">
                             <label>
@@ -23,16 +22,15 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <h5>Subtotal: $ <span id="subtotal{{ $requisicion->id_requisition_cat }}">0</span></h5>
-                    </div>
                 </div>
-
-                <div id="contenido{{ $requisicion->id_requisition_cat }}" style="display: none; margin-bottom: 120px;" data-rows="1">
+                <div class="col-md-3">
+                    <h5>Subtotal: $ <span id="subtotal{{ $requisicion->id_requisition_cat }}">0.00</span></h5>
+                </div>
+                <div id="contenido{{ $requisicion->id_requisition_cat }}" style="display: none" data-rows="1">
                     <div class="form-group col-md-12">
                         <div class="col-md-2">
                             <label>Cantidad: </label>
-                            <input class="form-control" type="number" min="0" name="cantidad{{ $requisicion->id_requisition_cat }}[]">
+                            <input class="form-control cantidad cantidad{{ $requisicion->id_requisition_cat }}" type="number" min="0" name="cantidad{{ $requisicion->id_requisition_cat }}[]">
                         </div>
                         <div class="col-md-2">
                             <label>Precio: </label>
@@ -51,14 +49,13 @@
                         </div>
                     </div>
                 </div>
-                 
-                <div class="col-md-12 btn_navegacion text-right">
+                <div class="col-md-12 btn_navegacion text-right" id="navegacion{{ $requisicion->id_requisition_cat }}">
                     <a href="javascript:void(0)" class="btn btn-default anterior" onclick="anterior({{ $requisicion->id_requisition_cat }})">Anterior</a>
                     <a href="javascript:void(0)" class="btn btn-default siguiente" onclick="siguiente({{ $requisicion->id_requisition_cat }})">Siguiente</a>
                 </div>
             </div>
+
         @endforeach
-        
     {!! Form::close() !!}
 @endsection
 
