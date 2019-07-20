@@ -31,7 +31,8 @@ class CreateStatesTable extends Migration
                 (3, 'Tabasco', 2, NOW()),
                 (4, 'Veracruz', 2, NOW()),
                 (5, 'Oaxaca', 2, NOW()),
-                (6, 'Quintana Roo', 2, NOW())"
+                (6, 'Quintana Roo', 2, NOW()),
+                (7, 'Yucatán', 2, NOW())"
         );
     }
 

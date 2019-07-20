@@ -17,11 +17,10 @@ class CreateSitesTable extends Migration
             $table->bigIncrements('id_site');
             $table->unsignedBigInteger('id_state');
 
-            $table->string('code', 100)->unique();
+            $table->string('code', 100);
             $table->string('instance', 100);
             $table->string('address', 200);
             
-
             $table->date('delivery_date')->nullable();
             $table->string('observations', 200)->nullable();
 

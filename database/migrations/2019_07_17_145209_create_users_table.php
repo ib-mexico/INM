@@ -38,11 +38,11 @@ class CreateUsersTable extends Migration
             ( id_user, user, email, password, name, id_entity, created_at) 
             VALUES (
                 1, 'admin', 'jorge.cortes@ib-mexico.com', '" . bcrypt('pwd_19851920') . "', 'Jorge Cortés', 1, NOW()),
-                (2, 'erick.montoya', 'erick.montoya@ib-mexico.com', '" . bcrypt('montoya1290') . "', 'erick.montoya', 1, NOW()),
-                (3, 'israel.prieto', 'israel.prieto@ib-mexico.com', '" . bcrypt('israel2134') . "', 'israel.prieto', 1, NOW()),
-                (4, 'emilio.rabelo', 'emilio.rabelo@ib-mexico.com', '" . bcrypt('emilio0123') . "', 'emilio.rabelo', 1, NOW()),
-                (5, 'harvey.cruz', 'harvey.cruz@ib-mexico.com', '" . bcrypt('harvey1002') . "', 'harvey.cruz', 1, NOW()),
-                (6, 'ana.bernal', 'ana.bernal@portenntum.com', '" . bcrypt('ana1212') . "', 'ana.bernal', 1, NOW())
+                (2, 'erick.montoya', 'erick.montoya@ib-mexico.com', '" . bcrypt('em_9k63gf') . "', 'Erick Montoya', 1, NOW()),
+                (3, 'israel.prieto', 'israel.prieto@ib-mexico.com', '" . bcrypt('ip_b0tvxh') . "', 'Israel Prieto', 1, NOW()),
+                (4, 'emilio.rabelo', 'emilio.rabelo@ib-mexico.com', '" . bcrypt('er_qdg0ts') . "', 'Emilio Rabelo', 1, NOW()),
+                (5, 'harvey.cruz', 'harvey.cruz@ib-mexico.com', '" . bcrypt('hc_06vh9h') . "', 'Harvey Cruz', 1, NOW()),
+                (6, 'ana.bernal', 'ana.bernal@portenntum.com', '" . bcrypt('a.b_rx7ef') . "', 'Ana Bernal', 1, NOW())
                 
                 ");  
     }
