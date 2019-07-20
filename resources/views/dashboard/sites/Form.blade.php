@@ -1,7 +1,7 @@
 @extends('dashboard.components.Main')
 
 @section('titulo', 'Formulario')
-@section('sub_pagina', '/ '.$sitio->name)
+@section('sub_pagina', '/ '.$sitio->instance)
 
 @section('encabezado')
     <h4>Total: $ <span id="total">0.00</span></h4>

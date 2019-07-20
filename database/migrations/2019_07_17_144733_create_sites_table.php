@@ -15,19 +15,18 @@ class CreateSitesTable extends Migration
     {
         Schema::create('sites', function (Blueprint $table) {
             $table->bigIncrements('id_site');
+            $table->unsignedBigInteger('id_state');
 
-            $table->string('id', 100)->unique();
+            $table->string('code', 100)->unique();
             $table->string('instance', 100);
             $table->string('address', 200);
             
-            $table->unsignedBigInteger('id_state');
 
-            $table->string('zone', 100);
-            $table->date('delivery_date');
-            $table->string('observations', 200);
+            $table->date('delivery_date')->nullable();
+            $table->string('observations', 200)->nullable();
 
-            $table->string('latitude', 25);
-            $table->string('longitude', 25);
+            $table->string('latitude', 25)->nullable();
+            $table->string('longitude', 25)->nullable();
             $table->dateTime('created_at');
             
         });

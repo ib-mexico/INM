@@ -17,20 +17,21 @@ class CreateStatesTable extends Migration
             $table->bigIncrements('id_state');
 
             $table->string('name', 100);
+            $table->integer('zone');
 
             $table->dateTime('created_at');
         });
 
         DB::statement("INSERT INTO
             states
-                (id_state, name, created_at)
+                (id_state, name, zone, created_at)
             VALUES
-                (1, 'Campeche', NOW()),
-                (2, 'Chiapas', NOW()),
-                (3, 'Tabasco', NOW()),
-                (4, 'Veracruz', NOW()),
-                (5, 'Oaxaca', NOW()),
-                (6, 'Quintana Roo', NOW())"
+                (1, 'Campeche', 2, NOW()),
+                (2, 'Chiapas', 5, NOW()),
+                (3, 'Tabasco', 2, NOW()),
+                (4, 'Veracruz', 2, NOW()),
+                (5, 'Oaxaca', 2, NOW()),
+                (6, 'Quintana Roo', 2, NOW())"
         );
     }
 

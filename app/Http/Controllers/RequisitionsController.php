@@ -17,7 +17,7 @@ class RequisitionsController extends Controller
     public function index() {
         $lstRequisitions = Requisition::select(
                                         'requisitions.id_requisition',
-                                        'sites.name AS site',
+                                        'sites.instance AS site',
                                         'users.name AS user',
                                         'requisitions.created_at'
                                     )
@@ -123,7 +123,7 @@ class RequisitionsController extends Controller
                 "id_user"           => $objRequisition->id_user,
                 "name_user"         => $objRequisition->user->name,
                 "id_site"           => $objRequisition->id_site,
-                "name_site"         => $objRequisition->site->name,
+                "name_site"         => $objRequisition->site->instance,
                 "created_at"        => $objRequisition->created_at,
                 "categories"        => $categories
             );

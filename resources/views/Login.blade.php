@@ -73,7 +73,7 @@
         {!! Form::open(['route' => 'login-panel']) !!}
     	    <input type="text" name="user" placeholder="Usuario" required="required" />
             <input type="password" name="password" placeholder="*********" required="required" />
-            <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+            <button type="submit" class="btn btn-primary btn-block btn-large">Accesar.</button>
         {!! Form::close() !!}
     </div>
 </body>

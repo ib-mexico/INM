@@ -12,6 +12,12 @@ class Site extends Model
 
     protected $fillable = ['name', 'latitute', 'longitude', 'created_at'];
 
+    /* RELATIONSHIPS - BEGIN */
+    public function state() {
+        return $this->belongsTo('App\State', 'id_state', 'id_state');
+    }
+    /* RELATIONSHIPS - END */
+
     public function save(array $options = array()) {
         return parent::save($options);
     }

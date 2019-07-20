@@ -14,7 +14,7 @@
 
                 @foreach ($sitios as $sitio)
                     <a href="{{ route('sites.form', $sitio->id_site) }}" class="list-group-item">
-                        <i class="fa fa-fw fa-circle"></i> {{ $sitio->name }}
+                        <i class="fa fa-fw fa-circle"></i> {{ $sitio->state->name}} | {{ $sitio->code }} | {{ $sitio->instance }}
                     </a>
                 @endforeach
                 
