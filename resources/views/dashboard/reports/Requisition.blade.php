@@ -25,6 +25,9 @@
     
     $arrayMay = array('Á', 'É', 'Í', 'Ó', 'Ú');
     $arrayMin = array('á', 'é', 'í', 'ó', 'ú');
+    $total_articulo = 0;
+    $subtotal = 0;
+    $total = 0;
     @endphp
 
 	<div class="container">
@@ -74,18 +77,49 @@
                 </tr>
 
                 @foreach ($category['lstRequisitionData'] as $lista)
+                    @php
+                        $precio = number_format(floatval($lista->price), 2, '.', '');
+                        $total_articulo = number_format((floatval($lista->quantity) * $precio), 2, '.', '');
+                    @endphp
                     <tr>
                         <td class="celdaH5" width="10%" style="text-align:center">{{ $lista->quantity }}</td>
-                        <td class="celdaH5" width="10%" style="text-align:center">{{ $lista->price }}</td>
+                        <td class="celdaH5" width="10%" style="text-align:right">$ {{ $precio }}</td>
+                        <td class="celdaH5" width="10%" style="text-align:right">$ {{ $total_articulo }}</td>
                         <td class="celdaH5" width="20%" style="text-align:center">{{ $lista->part_number }}</td>
-                        <td class="celdaH5" width="10%" style="text-align:center">{{ $lista->quantity * $lista->price }}</td>
                         <td class="celdaH5" width="50%" style="text-align:center">{{ $lista->description }}</td>
                     </tr>
-                @endforeach
-                
+                    @php
+                        $subtotal = floatval($subtotal) + $total_articulo;
+                    @endphp
+                @endforeach               
             </table>
+            <!-- Tabla subtotales -->
+            <table width="100%" cellpadding="2" cellspacing="0">
+                <tr>
+                    <td width="10%"></td>
+                    <td class="tituloBoldTH5" width="10%" style="text-align:center">Subtotal:</td>
+                    <td class="celdaH5" width="10%" style="text-align:right">$ {{ number_format($subtotal, 2, '.', '') }}</td>
+                    <td width="20%"></td>
+                    <td width="50%"></td>
+                </tr>
+            </table>
+            @php
+                $total = floatval($total) + $subtotal;
+                $subtotal = 0;
+            @endphp
             <br><br>
         @endforeach
+        
+        <br>
+
+        <table width="40%" cellpadding="2" cellspacing="0">
+            <tr>
+                <td class="tituloBoldTH4" width="10%" style="text-align:center">Total de requisici&oacute;n</td>
+            </tr>
+            <tr>
+                <td class="celdaH4" width="10%" style="text-align:center">$ {{ number_format($total, 2, '.', '') }}</td>
+            </tr>
+        </table>
 
         <table width="100%">
             <tr>
