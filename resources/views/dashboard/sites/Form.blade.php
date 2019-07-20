@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-md-2">
                             <label>Precio: </label>
-                            <input class="form-control precio{{ $requisicion->id_requisition_cat }} precio" min="0" value="" type="number" name="precio{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
+                            <input class="form-control precio{{ $requisicion->id_requisition_cat }} precio" min="0" value="" type="number" step="any" name="precio{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
                         </div>
                         <div class="col-md-3">
                             <label>Numero de partes: </label>

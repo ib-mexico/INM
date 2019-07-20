@@ -30,7 +30,7 @@ function agregarCampos(id_requision) {
 
     campos = '<div class="form-group col-md-12" id="campo'+rows+'">'+
         '<div class="col-md-2"><input class="form-control cantidad cantidad'+id_requision+'" min="0" type="number" name="cantidad'+id_requision+'[]"></div>'+
-        '<div class="col-md-2"><input class="form-control precio precio'+id_requision+'" min="0" type="number" name="precio'+id_requision+'[]" autocomplete="off"></div>'+
+        '<div class="col-md-2"><input class="form-control precio precio'+id_requision+'" min="0" type="number" step="any" name="precio'+id_requision+'[]" autocomplete="off"></div>'+
         '<div class="col-md-3"><input class="form-control" type="text" name="n_partes'+id_requision+'[]" autocomplete="off"></div>'+
         '<div class="col-md-4"><input class="form-control" type="text" name="descripcion'+id_requision+'[]" autocomplete="off"></div>'+
         '<div class="col-md-1" ><a class="btn btn-danger" onclick="elimniarCampos('+rows+', '+id_requision+')" href="javascript:void(0)"><i class="fas fa-times"></i></a></div></div>';
@@ -98,7 +98,6 @@ function validacionBtnGuardar(num_preguntas) {
         }
     }
 
-    console.log('validacion: '+checked+' - '+ btn_guardar.length)
     if (checked > 0 && btn_guardar.length < 1) {
         div_final_navegacion.append('<input class="btn btn-success guardar" type="submit" value="Guardar" >')
     }
