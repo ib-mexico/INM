@@ -49,6 +49,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-11">
+                    <div class="form-group">
+                        <h4>Descripci&oacute;n</h4>
+                        <input type="text" name="description_requisition{{ $requisicion->id_requisition_cat }}" class="form-control" autocomplete="off">
+                    </div>
+                </div>
                 <div class="col-md-12 btn_navegacion text-right" id="navegacion{{ $requisicion->id_requisition_cat }}">
                     <a href="javascript:void(0)" class="btn btn-default anterior" onclick="anterior({{ $requisicion->id_requisition_cat }})">Anterior</a>
                     <a href="javascript:void(0)" class="btn btn-default siguiente" onclick="siguiente({{ $requisicion->id_requisition_cat }})">Siguiente</a>
@@ -56,6 +62,8 @@
             </div>
 
         @endforeach
+
+        
     {!! Form::close() !!}
 @endsection
 

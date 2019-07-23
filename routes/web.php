@@ -20,8 +20,10 @@ Route::group([ 'prefix' => 'panel',
     
     Route::get('sitios', 'SitesController@index')->name('sites');
     Route::get('sitios/formulario/{id_site}', 'SitesController@formulario')->name('sites.form');
+    Route::post('sitios/date', 'SitesController@saveDate')->name('sites.date');
     
     Route::get('requisiciones', ['as' => 'requisitions', 'uses' => 'RequisitionsController@index']);
     Route::get('requisicion/{id_requisition}/pdf', 'RequisitionsController@generatePDF');
     Route::post('requisicion/registrar', ['as' => 'new-requisition', 'uses' => 'RequisitionsController@store']);
+    Route::post('requisicion/media', 'RequisitionsController@storeMedia')->name('sites.media');
 });

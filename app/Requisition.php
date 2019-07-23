@@ -23,6 +23,10 @@ class Requisition extends Model
     public function site() {
         return $this->belongsTo('\App\Site', 'id_site');
     }
+    
+    public function requisitionDescription() {
+        return $this->belongsTo('\App\RequisitionDescription', 'id_requisition_description');
+    }
 
     public function requisitionData() {
         return $this->hasMany('\App\RequisitionData', 'id_requisition');

@@ -3,28 +3,24 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use DB;
 
-class Site extends Model
+class RequisitionDescription extends Model
 {
-    protected $table = 'sites';
-    protected $primaryKey = 'id_site';
     public $timestamps = false;
-
-    protected $fillable = ['delivery_date', 'latitute', 'longitude', 'created_at'];
+    protected $fillable = ['description', 'created_at'];
 
     /* RELATIONSHIPS - BEGIN */
-    public function state() {
-        return $this->belongsTo('App\State', 'id_state', 'id_state');
+    public function requisitions() {
+        return $this->hasMany(Requisition::class);
     }
-    /* RELATIONSHIPS - END */
+     /* RELATIONSHIPS - END */
 
     public function save(array $options = array()) {
         return parent::save($options);
     }
 
     public function create(array $options = array()) {
-        if( $this['id_site'] === null) {
+        if( $this['id_requisition_description'] === null) {
             $this['created_at'] = date('Y-m-d H:i:s');
             return parent::save($options);
         } else {

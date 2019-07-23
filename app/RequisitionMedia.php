@@ -8,9 +8,10 @@ class RequisitionMedia extends Model
 {
     protected $table = 'requisition_media';
     protected $primaryKey = 'id_requisition_media';
+    public $timestamps = false;
 
     protected $fillable = [
-        'description', 'url', 'created_at', 'created_id_user'
+        'description', 'url', 'created_at'
     ];
 
     /* RELATIONSHIPS - BEGIN */

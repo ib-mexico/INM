@@ -22,4 +22,13 @@ class SitesController extends Controller
                                                     'num_requisiciones' => sizeof($requisiones)]);
     }
 
+    public function saveDate(Request $request){
+
+        $fecha =  $request->input('fecha');
+        $objSite = Site::where('id_site', $request->id_site)->first();
+        $objSite->delivery_date = date('Y-m-d H:i:s', strtotime($fecha));
+        $objSite->save();
+        
+        return redirect()->route('sites');
+    }
 }

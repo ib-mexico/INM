@@ -13,7 +13,7 @@
                         <th class="text-center">Sitio</th>
                         <th class="text-center">Usuario</th>
                         <th class="text-center">Fecha</th>
-                        <th class="text-center">Reporte</th>
+                        <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,7 +24,10 @@
                         <td>{{ $requisition->site }}</td>
                         <td>{{ $requisition->user }}</td>
                         <td class="text-center">{{ $requisition->created_at }}</td>
-                        <td class="text-center"><a href="{{ URL::to('panel/requisicion/'.$requisition->id_requisition.'/pdf') }}" target="_blank" class="btn btn-default"><i class="fas fa-file-pdf"></i></a></td>
+                        <td class="text-center">
+                            <a href="{{ URL::to('panel/requisicion/'.$requisition->id_requisition.'/pdf') }}" target="_blank" title="PDF" class="btn"><i class="fas fa-file-pdf"></i></a>
+                            <a href="#" class="btn" onclick="cargarId({{$requisition->id_requisition}})" data-toggle="modal" title="Cargar imagen" data-target="#modaImages"><i class="far fa-image"></i></a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -32,11 +35,14 @@
         </div>
     </div>
 </div>
+
+@include('dashboard.requisitions.modals.Images')
 @endsection
 
 @section('js')
     <script src="{{ asset('js/dataTables/jquery.dataTables.js') }}"></script> 
     <script src="{{ asset('js/dataTables/dataTables.bootstrap.js') }}"></script>
+    <script src="{{ asset('js/site/media.js') }}"></script>
     <script>
         $(document).ready(function () {
             $('#dataTables-requisitions').dataTable();

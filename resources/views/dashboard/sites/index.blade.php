@@ -2,6 +2,10 @@
 
 @section('titulo', 'Sitios')
 
+@section('css')
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+@endsection
+
 @section('body')
 <div class="col-md-12">
 
@@ -27,9 +31,14 @@
                             <td>{{ $sitio->address }}</td>
                             <td class="text-center">{{ $sitio->state->name }}</td>
                             <td class="text-center">{{ $sitio->state->zone }}</td>
-                            <td class="text-center">{{ $sitio->delivery_date }}</td>
+                            <td class="text-center">
+                                @php
+                                    $btnAgregarFecha = '<a class="btn" data-toggle="modal" onclick="cargarFecha('.$sitio->id_site.')" data-target="#modalDate"><i class="far fa-calendar-plus"></i></a>';
+                                    (($sitio->delivery_date == null)? print($btnAgregarFecha) : print($sitio->delivery_date));
+                                @endphp
+                            </td>
                             <td>{{ $sitio->observations }}</td>
-                            <td class="text-center"><a href="{{ route('sites.form', $sitio->id_site) }}" class="btn btn-default"><i class="fas fa-tasks"></i></a></td>
+                            <td class="text-center"><a href="{{ route('sites.form', $sitio->id_site) }}" class="btn"><i class="fas fa-tasks"></i></a></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -39,14 +48,19 @@
     </div>
         
 </div>
+@include('dashboard.sites.modals.Date')
 @endsection
 
 @section('js')
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{ asset('js/dataTables/jquery.dataTables.js') }}"></script> 
     <script src="{{ asset('js/dataTables/dataTables.bootstrap.js') }}"></script>
+    <script src="{{ asset('js/site/date.js') }}"></script>
+
     <script>
         $(document).ready(function () {
-            $('#dataTables-sites').dataTable();
+            $('#dataTables-sites').dataTable()
+            $( "#datepicker" ).datepicker()
         });
     </script>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Library\Messages;
 use App\Library\Errors;
@@ -9,6 +10,8 @@ use App\Library\Returns\ActionReturn;
 use App\RequisitionCat;
 use App\Requisition;
 use App\RequisitionData;
+use App\RequisitionDescription;
+use App\RequisitionMedia;
 use Auth;
 use PDF;
 
@@ -42,7 +45,7 @@ class RequisitionsController extends Controller
     
                 switch($item->id_requisition_cat) {
                     case 1:
-                        ((isset($request['check'.$item->id_requisition_cat]))? $objRequisition->bool_ins_elec = true : $objRequisition->bool_ins_elec = false);
+                        (isset($request['check'.$item->id_requisition_cat]))? $objRequisition->bool_ins_elec = true : $objRequisition->bool_ins_elec = false;
                     break;
     
                     case 2:
@@ -68,6 +71,52 @@ class RequisitionsController extends Controller
             }
 
                 if($objRequisition->create()) {
+
+                    if($objRequisition->bool_ins_elec) {
+                        $objDescription = new RequisitionDescription();
+                        $objDescription->id_requisition = $objRequisition->id_requisition;
+                        $objDescription->id_requisition_cat = 1;
+                        $objDescription->description = $request['description_requisition1'];
+                        $objDescription->create();
+                    }    
+                   
+                    if($objRequisition->bool_ins_phy_earth) {
+                        $objDescription = new RequisitionDescription();
+                        $objDescription->id_requisition = $objRequisition->id_requisition;
+                        $objDescription->id_requisition_cat = 2;
+                        $objDescription->description = $request['description_requisition2'];
+                        $objDescription->create();
+                    }     
+                    if($objRequisition->bool_ins_grounding) {
+                        $objDescription = new RequisitionDescription();
+                        $objDescription->id_requisition = $objRequisition->id_requisition;
+                        $objDescription->id_requisition_cat = 3;
+                        $objDescription->description = $request['description_requisition3'];
+                        $objDescription->create();
+                    }
+                    if($objRequisition->bool_ins_lighting) {
+                        $objDescription = new RequisitionDescription();
+                        $objDescription->id_requisition = $objRequisition->id_requisition;
+                        $objDescription->id_requisition_cat = 4;
+                        $objDescription->description = $request['description_requisition4'];
+                        $objDescription->create();
+                    }  
+                    if($objRequisition->bool_ins_supressor_a) {
+                        $objDescription = new RequisitionDescription();
+                        $objDescription->id_requisition = $objRequisition->id_requisition;
+                        $objDescription->id_requisition_cat = 5;
+                        $objDescription->description = $request['description_requisition5'];
+                        $objDescription->create();
+                    }  
+                    if($objRequisition->bool_ins_supressor_b) {
+                        $objDescription = new RequisitionDescription();
+                        $objDescription->id_requisition = $objRequisition->id_requisition;
+                        $objDescription->id_requisition_cat = 6;
+                        $objDescription->description = $request['description_requisition6'];
+                        $objDescription->create();
+                    }    
+
+
                     for($i = 1; $i < sizeof($requisionesCat) + 1; $i++) {
                         for($j = 0; $j < sizeof($request['cantidad'.$i]); $j++) {
                             if(isset($request['cantidad'.$i][$j]) && $request['cantidad'.$i][$j] != 0) {
@@ -94,6 +143,25 @@ class RequisitionsController extends Controller
 
          return $objReturn->getRedirectPath();
     }
+
+
+    public function storeMedia(Request $request){
+
+        $objMedia = new RequisitionMedia();
+
+        $storage = Storage::disk('s3');
+        $path = $storage->put('images/', $request->file('imagen'), 'public');
+
+        $objMedia->id_requisition = $request->id_requisition;
+        $objMedia->created_id_user = Auth::user()->id_user;
+        $objMedia->description = "description";
+        $objMedia->url = $path;
+        $objMedia->create();
+
+        return ['data' => $path];
+    }
+
+
 
     public function generatePDF($id_requisition) {
     
