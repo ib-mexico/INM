@@ -162,3 +162,54 @@ function deshabilitarCampos(id_pregunta) {
 function habilitarCampos(id_pregunta) {
     $('#contenido'+id_pregunta+'>div>div>input').prop('disabled', false)
 }
+
+
+$('form#requisitionForm').submit(function(e) {
+
+
+    var num_preguntas = parseInt($('form').data('rows'))
+
+    for (let index = 1; index <= num_preguntas; index++) {
+        var checkBox = $('#check'+index)
+        
+        if (checkBox.is(':checked')) {
+            console.log(checkBox)
+
+            var cantidad = $('.cantidad'+index)
+            var precio = $('.precio'+index)
+            var n_partes = $('.n_partes'+index)
+            var descripcion = $('.descripcion'+index)
+            var i = 0
+
+            if(cantidad.val() == ''){
+                i++
+            } else {
+                if (precio.val() == '') {
+                    i++                
+                } else {
+                    if (n_partes.val() == '') {
+                        i++
+                    } else {
+                        if (descripcion.val() == '') {
+                            i++
+                        }
+                    }
+                }
+            }
+
+
+            if (i > 0) {
+                e.preventDefault()
+                alert('Tiene campos vacios, no se puede guardar.')
+            }
+            //console.log(n_partes.val())
+            console.log(i)
+        }
+        
+    }
+
+    
+
+
+
+})

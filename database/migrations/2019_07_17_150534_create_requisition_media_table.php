@@ -19,7 +19,7 @@ class CreateRequisitionMediaTable extends Migration
             $table->unsignedBigInteger('id_requisition');
             $table->unsignedBigInteger('created_id_user');
 
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('url');
 
             $table->dateTime('created_at');

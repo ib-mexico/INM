@@ -37,7 +37,12 @@
                                     (($sitio->delivery_date == null)? print($btnAgregarFecha) : print($sitio->delivery_date));
                                 @endphp
                             </td>
-                            <td>{{ $sitio->observations }}</td>
+                            <td class="text-center">
+                                @php
+                                    $btnAgregarComentario = '<a class="btn" data-toggle="modal" onclick="cargarComentario('.$sitio->id_site.')" data-target="#modalDescription"><i class="fas fa-keyboard"></i></a>';
+                                    (($sitio->description == null)? print($btnAgregarComentario) : print($sitio->description));
+                                @endphp
+                            </td>
                             <td class="text-center"><a href="{{ route('sites.form', $sitio->id_site) }}" class="btn"><i class="fas fa-tasks"></i></a></td>
                         </tr>
                     @endforeach
@@ -49,6 +54,7 @@
         
 </div>
 @include('dashboard.sites.modals.Date')
+@include('dashboard.sites.modals.Description')
 @endsection
 
 @section('js')

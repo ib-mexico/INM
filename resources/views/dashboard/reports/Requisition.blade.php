@@ -78,13 +78,14 @@
 
                 @foreach ($category['lstRequisitionData'] as $lista)
                     @php
-                        $precio = number_format(floatval($lista->price), 2, '.', '');
-                        $total_articulo = number_format((floatval($lista->quantity) * $precio), 2, '.', '');
+                        $precio = floatval($lista->price);
+                        $cantidad = floatval($lista->quantity);
+                        $total_articulo = ($cantidad * $precio);
                     @endphp
                     <tr>
                         <td class="celdaH5" width="10%" style="text-align:center">{{ $lista->quantity }}</td>
-                        <td class="celdaH5" width="10%" style="text-align:right">$ {{ $precio }}</td>
-                        <td class="celdaH5" width="10%" style="text-align:right">$ {{ $total_articulo }}</td>
+                        <td class="celdaH5" width="10%" style="text-align:right">$ {{ number_format($precio, 2, '.', ',') }}</td>
+                        <td class="celdaH5" width="10%" style="text-align:right">$ {{ number_format($total_articulo, 2, '.', ',') }}</td>
                         <td class="celdaH5" width="20%" style="text-align:center">{{ $lista->part_number }}</td>
                         <td class="celdaH5" width="50%" style="text-align:center">{{ $lista->description }}</td>
                     </tr>
@@ -98,7 +99,7 @@
                 <tr>
                     <td width="10%"></td>
                     <td class="tituloBoldTH5" width="10%" style="text-align:center">Subtotal:</td>
-                    <td class="celdaH5" width="10%" style="text-align:right">$ {{ number_format($subtotal, 2, '.', '') }}</td>
+                    <td class="celdaH5" width="10%" style="text-align:right">$ {{ number_format($subtotal, 2, '.', ',') }}</td>
                     <td width="20%"></td>
                     <td width="50%"></td>
                 </tr>
@@ -107,7 +108,15 @@
                 $total = floatval($total) + $subtotal;
                 $subtotal = 0;
             @endphp
-            <br><br>
+            <br>
+                <table width="100%">
+                    <tr>
+                        <td class="tituloH6"  width="100%" style="text-align: left">
+                            Descripci&oacute;n: {{ $category['description'] }}
+                        </td>
+                    </tr>
+                </table>
+            <hr><br><br>
         @endforeach
         
         <br>
@@ -117,7 +126,7 @@
                 <td class="tituloBoldTH4" width="10%" style="text-align:center">Total de requisici&oacute;n</td>
             </tr>
             <tr>
-                <td class="celdaH4" width="10%" style="text-align:center">$ {{ number_format($total, 2, '.', '') }}</td>
+                <td class="celdaH4" width="10%" style="text-align:center">$ {{ number_format($total, 2, '.', ',') }}</td>
             </tr>
         </table>
 

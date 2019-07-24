@@ -12,7 +12,7 @@
                     @csrf
                     <input type="hidden" value="" name="id_site" id="id_site">
                     <div class="form-group">
-                        <label>Precio: </label>
+                        <label>Fecha: </label>
                         <input id="datepicker" class="form-control" type="text" name="fecha" autocomplete="off" required>                        
                     </div>
 

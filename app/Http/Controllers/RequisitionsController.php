@@ -72,7 +72,7 @@ class RequisitionsController extends Controller
 
                 if($objRequisition->create()) {
 
-                    if($objRequisition->bool_ins_elec) {
+                    if($request['description_requisition1'] != null) {
                         $objDescription = new RequisitionDescription();
                         $objDescription->id_requisition = $objRequisition->id_requisition;
                         $objDescription->id_requisition_cat = 1;
@@ -80,35 +80,35 @@ class RequisitionsController extends Controller
                         $objDescription->create();
                     }    
                    
-                    if($objRequisition->bool_ins_phy_earth) {
+                    if($request['description_requisition2'] != null) {
                         $objDescription = new RequisitionDescription();
                         $objDescription->id_requisition = $objRequisition->id_requisition;
                         $objDescription->id_requisition_cat = 2;
                         $objDescription->description = $request['description_requisition2'];
                         $objDescription->create();
                     }     
-                    if($objRequisition->bool_ins_grounding) {
+                    if($request['description_requisition3'] != null) {
                         $objDescription = new RequisitionDescription();
                         $objDescription->id_requisition = $objRequisition->id_requisition;
                         $objDescription->id_requisition_cat = 3;
                         $objDescription->description = $request['description_requisition3'];
                         $objDescription->create();
                     }
-                    if($objRequisition->bool_ins_lighting) {
+                    if($request['description_requisition4'] != null) {
                         $objDescription = new RequisitionDescription();
                         $objDescription->id_requisition = $objRequisition->id_requisition;
                         $objDescription->id_requisition_cat = 4;
                         $objDescription->description = $request['description_requisition4'];
                         $objDescription->create();
                     }  
-                    if($objRequisition->bool_ins_supressor_a) {
+                    if($request['description_requisition5'] != null) {
                         $objDescription = new RequisitionDescription();
                         $objDescription->id_requisition = $objRequisition->id_requisition;
                         $objDescription->id_requisition_cat = 5;
                         $objDescription->description = $request['description_requisition5'];
                         $objDescription->create();
                     }  
-                    if($objRequisition->bool_ins_supressor_b) {
+                    if($request['description_requisition6'] != null) {
                         $objDescription = new RequisitionDescription();
                         $objDescription->id_requisition = $objRequisition->id_requisition;
                         $objDescription->id_requisition_cat = 6;
@@ -144,24 +144,84 @@ class RequisitionsController extends Controller
          return $objReturn->getRedirectPath();
     }
 
-
     public function storeMedia(Request $request){
 
         $objMedia = new RequisitionMedia();
 
         $storage = Storage::disk('s3');
-        $path = $storage->put('images/', $request->file('imagen'), 'public');
+        $path = $storage->put('images', $request->file('imagen'), 'public');
 
         $objMedia->id_requisition = $request->id_requisition;
         $objMedia->created_id_user = Auth::user()->id_user;
-        $objMedia->description = "description";
         $objMedia->url = $path;
         $objMedia->create();
 
-        return ['data' => $path];
+        return redirect('panel/requisiciones');
     }
 
+    public function edit($id_requisition) {
+        $objRequisition = Requisition::where('id_requisition', $id_requisition)->first();
+    
+        if($objRequisition != null) {
+            $categories = array();
+            $lstRequisitionCat = RequisitionCat::all();
+    
+            foreach($lstRequisitionCat as $requisitionCat) {
+    
+                $lstRequisitionData = RequisitionData::where('id_requisition', $id_requisition)
+                                                    ->where('id_requisition_cat', $requisitionCat->id_requisition_cat)
+                                                    ->get();
 
+                $requisitionDescription = RequisitionDescription::where('id_requisition', $id_requisition)
+                                                    ->where('id_requisition_cat', $requisitionCat->id_requisition_cat)
+                                                    ->first();
+                
+                if(sizeof($lstRequisitionData) > 0) {
+                    array_push($categories, array(
+                        "id_requisition_cat"    => $requisitionCat->id_requisition_cat,
+                        "name"                  => $requisitionCat->name,
+                        "description"           => $requisitionDescription['description'],
+                        "lstRequisitionData"    => $lstRequisitionData
+                    ));
+                }
+            }
+
+            $data = array(
+                "id_requisition"    => $objRequisition->id_requisition,
+                "id_user"           => $objRequisition->id_user,
+                "name_user"         => $objRequisition->user->name,
+                "id_site"           => $objRequisition->id_site,
+                "name_site"         => $objRequisition->site->instance,
+                "created_at"        => $objRequisition->created_at,
+                "categories"        => $categories
+            );
+        } else {
+            $data = "No hay registros.";
+        }
+
+        return view('dashboard.requisitions.Edit', ['data' => $data]);
+    }
+
+    public function getMedia(Request $request){
+        $idRequisicion = $request->input('id_requisicion');
+        $stringFoto = '';
+
+        $objFotos = RequisitionMedia::where('id_requisition', $idRequisicion)->get();
+
+        foreach ($objFotos as $foto) {
+            $stringFoto .= '
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body easypiechart-panel" height="110" width="110">
+                            <img height="130px" src="https://s3.amazonaws.com/migracion-inm/'. $foto->url .'" />
+                        </div>
+                    </div>
+                </div>
+            ';
+        }
+
+        return ['fotos' => $stringFoto];
+    }
 
     public function generatePDF($id_requisition) {
     
@@ -176,11 +236,24 @@ class RequisitionsController extends Controller
                 $lstRequisitionData = RequisitionData::where('id_requisition', $id_requisition)
                                                     ->where('id_requisition_cat', $requisitionCat->id_requisition_cat)
                                                     ->get();
-                
+
+                $requisitionDescription = RequisitionDescription::where('id_requisition', $id_requisition)
+                                                    ->where('id_requisition_cat', $requisitionCat->id_requisition_cat)
+                                                    ->first();
+                if ($requisitionDescription['description'] != null && sizeof($lstRequisitionData) == 0) {
+                    array_push($categories, array(
+                        "id_requisition_cat"    => $requisitionCat->id_requisition_cat,
+                        "name"                  => $requisitionCat->name,
+                        "description"           => $requisitionDescription['description'],
+                        "lstRequisitionData"    => $lstRequisitionData
+                    ));
+                }
+
                 if(sizeof($lstRequisitionData) > 0) {
                     array_push($categories, array(
                         "id_requisition_cat"    => $requisitionCat->id_requisition_cat,
                         "name"                  => $requisitionCat->name,
+                        "description"           => $requisitionDescription['description'],
                         "lstRequisitionData"    => $lstRequisitionData
                     ));
                 }

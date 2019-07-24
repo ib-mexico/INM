@@ -8,7 +8,7 @@
 @endsection
 
 @section('body')
-    {!! Form::open(['route' => 'new-requisition', 'method' => 'POST' , 'id' => 'vehiculoForm', 'data-rows' => $num_requisiciones]) !!}
+    {!! Form::open(['route' => 'new-requisition', 'method' => 'POST' , 'id' => 'requisitionForm', 'data-rows' => $num_requisiciones]) !!}
         <input type="hidden" value="{{ $sitio->id_site }}" name="id_site">
         @foreach ($requisiciones as $requisicion)
 
@@ -38,11 +38,11 @@
                         </div>
                         <div class="col-md-3">
                             <label>Numero de partes: </label>
-                            <input class="form-control" type="text" name="n_partes{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
+                            <input class="form-control n_partes{{ $requisicion->id_requisition_cat }}" type="text" name="n_partes{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
                         </div>
                         <div class="col-md-4">
                             <label>Descripci&oacute;n: </label>
-                            <input class="form-control" type="text" name="descripcion{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
+                            <input class="form-control descripcion{{ $requisicion->id_requisition_cat }}" type="text" name="descripcion{{ $requisicion->id_requisition_cat }}[]" autocomplete="off">
                         </div>
                         <div class="col-md-1" style="margin-top: 25px;">
                             <a href="javascript:void(0)" class="btn btn-default" onclick="agregarCampos({{ $requisicion->id_requisition_cat }})" >+</a>
