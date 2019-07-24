@@ -38,10 +38,10 @@
                                 @endphp
                             </td>
                             <td class="text-center">
-                                @php
+                                {{--@php
                                     $btnAgregarComentario = '<a class="btn" data-toggle="modal" onclick="cargarComentario('.$sitio->id_site.')" data-target="#modalDescription"><i class="fas fa-keyboard"></i></a>';
                                     (($sitio->description == null)? print($btnAgregarComentario) : print($sitio->description));
-                                @endphp
+                                @endphp --}}
                             </td>
                             <td class="text-center"><a href="{{ route('sites.form', $sitio->id_site) }}" class="btn"><i class="fas fa-tasks"></i></a></td>
                         </tr>

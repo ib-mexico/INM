@@ -26,6 +26,8 @@ Route::group([ 'prefix' => 'panel',
     Route::get('requisicion/{id_requisition}/pdf', 'RequisitionsController@generatePDF');
     Route::post('requisicion/registrar', ['as' => 'new-requisition', 'uses' => 'RequisitionsController@store']);
     Route::get('requisicion/editar/{id_requisition}', 'RequisitionsController@edit')->name('requisition.edit');
+    Route::post('requisicion/editar/store', ['as' => 'add-requisition', 'uses' => 'RequisitionsController@storeEdit']);
+    Route::get('requisicion/deleteData', 'RequisitionsController@deleteData');
     Route::post('requisicion/media', 'RequisitionsController@storeMedia')->name('sites.media');
     Route::get('requisicion/getmedia/', 'RequisitionsController@getMedia');
 });

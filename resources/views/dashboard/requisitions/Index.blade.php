@@ -26,8 +26,8 @@
                         <td class="text-center">{{ $requisition->created_at }}</td>
                         <td class="text-center">
                             <a href="{{ URL::to('panel/requisicion/'.$requisition->id_requisition.'/pdf') }}" target="_blank" title="PDF" class="btn"><i class="fas fa-file-pdf"></i></a>
-                            <a href="{{ route('requisition.edit', ['id_requisition' => $requisition->id_requisition]) }}" class="btn" title="Editar requisicion"><i class="fas fa-edit"></i></a>
-                            <a href="#" class="btn" onclick="cargarId({{$requisition->id_requisition}})" data-toggle="modal" title="Cargar imagenes" data-target="#modaImages"><i class="far fa-image"></i></a>
+                            <a href="{{ route('requisition.edit', ['id_requisition' => $requisition->id_requisition]) }}" class="btn" title="EDITAR"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="btn" onclick="cargarId({{$requisition->id_requisition}})" data-toggle="modal" title="IMÁGENES" data-target="#modaImages"><i class="far fa-image"></i></a>
                         </td>
                     </tr>
                     @endforeach

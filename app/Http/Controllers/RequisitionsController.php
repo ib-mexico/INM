@@ -202,6 +202,57 @@ class RequisitionsController extends Controller
         return view('dashboard.requisitions.Edit', ['data' => $data]);
     }
 
+    public function storeEdit(Request $request){
+        $objData                        = new RequisitionData();
+        $objData->id_requisition        = $request->input('id_requisition');
+        $objData->id_requisition_cat    = $request->input('id_requisition_cat');
+        $objData->quantity              = $request->input('cantidad');
+        $objData->part_number           = $request->input('n_partes');
+        $objData->description           = $request->input('descripcion');
+        $objData->price                 = $request->input('precio');
+      
+        $stringData = '<div class="row">
+            <div class="col-md-1 text-center">
+                <label>'.$request->input('cantidad').'</label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>$ '.number_format($request->input('precio'), 2, '.', ',').'</label>
+            </div>
+            <div class="col-md-2 text-right">
+                <label>$ '.number_format(($request->input('cantidad') * $request->input('precio')), 2, '.', ',').'</label>
+            </div>
+            <div class="col-md-2">
+                <label>'.$request->input('n_partes').'</label>
+            </div>
+            <div class="col-md-4">
+                <label>'.$request->input('descripcion').'</label>
+            </div></div>
+        ';
+
+        if ($objData->create()){
+            $return = true;
+        } else {
+            $return = false;
+        }
+
+        return ['return' => $return, 'data' => $stringData, 'id_cat' => $request->input('id_requisition_cat')];
+    }
+
+    public function deleteData(Request $request){
+
+        $objData = RequisitionData::where('id_requisition_data', $request->input('id_data'))->first();
+        $objData->delete();
+
+        if($objData) {
+            $delete = true;
+        } else {
+            $delete = false;
+        }
+
+
+        return ['delete' => $delete, 'id_requisition_data' => $request->input('id_data')];
+    }
+
     public function getMedia(Request $request){
         $idRequisicion = $request->input('id_requisicion');
         $stringFoto = '';

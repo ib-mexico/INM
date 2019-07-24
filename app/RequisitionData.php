@@ -38,6 +38,6 @@ class RequisitionData extends Model
     }
 
     public function delete() {
-        return false;
+        return parent::delete();
     }
 }
