@@ -31,6 +31,7 @@
     </div-->
 </div>
 
+    {{-- dd($data) --}}
 <br>
     @foreach ($data['categories'] as $category)
 
@@ -42,57 +43,76 @@
                     </div>
                     <div class="panel-body">
 
-                        <div class="row">
-                            <div class="col-md-1 text-center"><label>#</label></div>
-                            <div class="col-md-2 text-right"><label>Precio</label></div>
-                            <div class="col-md-2 text-right"><label>Total</label></div>
-                            <div class="col-md-2"><label>Num. de partes</label></div>
-                            <div class="col-md-4"><label>Descripci&oacute;n</label></div>
-                            <div class="col-md-1"></div>
-                        </div>
-        
-                        @foreach ($category['lstRequisitionData'] as $lista)
-                            @php
-                                $precio = floatval($lista->price);
-                                $cantidad = floatval($lista->quantity);
-                                $total_articulo = ($cantidad * $precio);
-                            @endphp
-
-                            <div class="row" id="{{ $lista->id_requisition_data }}">
-                                <div class="col-md-1 text-center">{{ $lista->quantity }}</div>
-                                <div class="col-md-2 text-right">$ {{ number_format($precio, 2, '.', ',') }}</div>
-                                <div class="col-md-2 text-right">$ {{ number_format($total_articulo, 2, '.', ',') }}</div>
-                                <div class="col-md-2">{{ $lista->part_number }}</div>
-                                <div class="col-md-4">{{ $lista->description }}</div>
-                                <div class="col-md-1">
-                                    <a href="#" class="btn" onclick="eliminarItem({{ $lista->id_requisition_data }})"><i class="fas fa-times-circle"></i></a>
-                                </div>
+                        @if ($category['lstRequisitionData'] != null)
+                            <div class="row">
+                                <div class="col-md-1 text-center"><label>#</label></div>
+                                <div class="col-md-2 text-right"><label>Precio</label></div>
+                                <div class="col-md-2 text-right"><label>Total</label></div>
+                                <div class="col-md-2"><label>Num. de partes</label></div>
+                                <div class="col-md-4"><label>Descripci&oacute;n</label></div>
+                                <div class="col-md-1"></div>
                             </div>
+        
+                            @foreach ($category['lstRequisitionData'] as $lista)
+                                @php
+                                    $precio = floatval($lista->price);
+                                    $cantidad = floatval($lista->quantity);
+                                    $total_articulo = ($cantidad * $precio);
+                                @endphp
 
-                            @php
-                                $subtotal = floatval($subtotal) + $total_articulo;
-                            @endphp
-                        @endforeach 
-                        <div id="cat{{ $category['id_requisition_cat'] }}" ></div>
-                        <hr>
-                        <div class="row">
-                            {!! Form::open(['route' => 'add-requisition', 'method' => 'POST' , 'id' => 'requisitionDataForm']) !!}
+                                <div class="row" id="{{ $lista->id_requisition_data }}">
+                                    <div class="col-md-1 text-center">{{ $lista->quantity }}</div>
+                                    <div class="col-md-2 text-right">$ {{ number_format($precio, 2, '.', ',') }}</div>
+                                    <div class="col-md-2 text-right">$ {{ number_format($total_articulo, 2, '.', ',') }}</div>
+                                    <div class="col-md-2">{{ $lista->part_number }}</div>
+                                    <div class="col-md-4">{{ $lista->description }}</div>
+                                    <div class="col-md-1">
+                                        <a href="#" class="btn" onclick="eliminarItem({{ $lista->id_requisition_data }})"><i class="fas fa-times-circle"></i></a>
+                                    </div>
+                                </div>
+
+                                @php
+                                    $subtotal = floatval($subtotal) + $total_articulo;
+                                @endphp
+                            @endforeach 
+                        
+                            <div id="cat{{ $category['id_requisition_cat'] }}" ></div>
+                            <hr>
+                            <div class="row">
+                                {!! Form::open(['route' => 'add-requisition', 'method' => 'POST' , 'class' => 'requisitionDataForm']) !!}
+                                    <input type="hidden" name="id_requisition" value="{{ $data['id_requisition'] }}">
+                                    <input type="hidden" name="id_requisition_cat" value="{{ $category['id_requisition_cat'] }}">
+                                    <div class="col-md-2">
+                                        <input class="form-control" type="number" name="cantidad" required autocomplete="off" placeholder="Cantidad">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input class="form-control" type="number" name="precio" step="any" required autocomplete="off" placeholder="Precio">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input class="form-control" type="text" name="n_partes" required autocomplete="off" placeholder="Num. de partes">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control" type="text" name="descripcion" requiered autocomplete="off" placeholder="Descripci&oacute;n">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="submit" value="+" class="btn">
+                                    </div>
+                                {!! Form::close() !!}
+                            </div>
+                        @endif
+                        <br>
+                        <div class="row" id="descriptionUpdate{{ $category['id_requisition_cat'] }}">
+                            {!! Form::open(['route' => 'edit-description', 'method' => 'POST' , 'class' => 'descriptionDataForm']) !!}
                                 <input type="hidden" name="id_requisition" value="{{ $data['id_requisition'] }}">
                                 <input type="hidden" name="id_requisition_cat" value="{{ $category['id_requisition_cat'] }}">
-                                <div class="col-md-2">
-                                    <input class="form-control" type="number" name="cantidad" required  requiered autocomplete="off" placeholder="Cantidad">
-                                </div>
-                                <div class="col-md-2">
-                                    <input class="form-control" type="number" name="precio" step="any" required  requiered autocomplete="off" placeholder="Precio">
-                                </div>
-                                <div class="col-md-3">
-                                    <input class="form-control" type="text" name="n_partes" required requiered autocomplete="off" placeholder="Num. de partes">
-                                </div>
-                                <div class="col-md-4">
-                                    <input class="form-control" type="text" name="descripcion" requiered autocomplete="off" placeholder="Descripci&oacute;n">
+                                <input type="hidden" name="id_description" value="{{ $category['id_description'] }}">
+                                <div class="col-md-11">
+                                    <div class="showDescription{{ $category['id_requisition_cat'] }}">Descripci&oacute;n: {{ $category['description'] }}</div>
+                                    <input class="form-control description{{ $category['id_requisition_cat'] }}" type="text" name="description" style="display: none" required autocomplete="off" value="{{ $category['description'] }}">
                                 </div>
                                 <div class="col-md-1">
-                                    <input type="submit" value="+" class="btn">
+                                    <a href="javascript:void(0)" onclick="editarDescripcion({{ $category['id_requisition_cat'] }})" class="btn showDescription{{ $category['id_requisition_cat'] }}"><i class="fas fa-edit"></i></a>
+                                    <button class="btn description{{ $category['id_requisition_cat'] }}" style="display: none"><i class="fas fa-save"></i></button>
                                 </div>
                             {!! Form::close() !!}
                         </div>

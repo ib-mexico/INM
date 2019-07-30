@@ -1,6 +1,5 @@
-$('form').submit( function (e) {
+$('form.requisitionDataForm').submit( function (e) {
     e.preventDefault();
-
     var data = $(this).serializeArray();
 
     $.ajax({
@@ -19,7 +18,7 @@ $('form').submit( function (e) {
         }
     })
     .fail(function(a){
-        console.log('No se puede eliminar')
+        console.log('Error al guardar')
     })
 })
 
@@ -42,3 +41,27 @@ function eliminarItem(id_requisition_data) {
         console.log('Error al cargar la fotos.')
     })
 }
+
+function editarDescripcion(id_cat) {
+    $('.description'+id_cat).css('display', 'block')
+    $('.showDescription'+id_cat).remove()
+}
+
+$('form.descriptionDataForm').submit( function (e) {
+    e.preventDefault();
+    var data = $(this).serializeArray();
+
+    $.ajax({
+        url: '../editarDescripcion',
+        type: 'POST',
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        dataType: 'json',
+        data: data
+    })
+    .done(function(a){
+        $('#descriptionUpdate'+a.id_requisition).html(a.descripcion)
+    })
+    .fail(function(a){
+        console.log($('#descriptionUpdate'+a.id_requisition))
+    })
+})

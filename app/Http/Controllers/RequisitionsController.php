@@ -176,12 +176,13 @@ class RequisitionsController extends Controller
                                                     ->where('id_requisition_cat', $requisitionCat->id_requisition_cat)
                                                     ->first();
                 
-                if(sizeof($lstRequisitionData) > 0) {
+                if(sizeof($lstRequisitionData) > 0 || $requisitionDescription) {
                     array_push($categories, array(
                         "id_requisition_cat"    => $requisitionCat->id_requisition_cat,
                         "name"                  => $requisitionCat->name,
+                        "id_description"           => $requisitionDescription['id_requisition_description'],
                         "description"           => $requisitionDescription['description'],
-                        "lstRequisitionData"    => $lstRequisitionData
+                        "lstRequisitionData"    => ((sizeof($lstRequisitionData) == 0)? 0 : $lstRequisitionData)
                     ));
                 }
             }
@@ -251,6 +252,36 @@ class RequisitionsController extends Controller
 
 
         return ['delete' => $delete, 'id_requisition_data' => $request->input('id_data')];
+    }
+
+    public function editDescription(Request $request) {
+        $descriptionUpdate = RequisitionDescription::where('id_requisition_description', $request->input('id_description'))->first();
+
+        
+        if($descriptionUpdate != null) {
+            $description = RequisitionDescription::where('id_requisition_description', $request->input('id_description'))
+                                ->update(['description' => $request->input('description')]);
+
+            $rtDescription = RequisitionDescription::select('description')
+                                                        ->where('id_requisition_description', $request->input('id_description'))
+                                                        ->first();
+
+            $returnDescription = $rtDescription->description;
+        } else {
+            $newDescription = new RequisitionDescription();
+            $newDescription->id_requisition      = $request->input('id_requisition');
+            $newDescription->id_requisition_cat  = $request->input('id_requisition_cat');
+            $newDescription->description         = $request->input('description');
+            
+            $newDescription->create();
+
+            $returnDescription = $newDescription->description;
+        }
+
+        $strNewDescription = '<div class="col-md-12"><div>Descripci&oacute;n: '.$returnDescription.'</div></div>';
+
+        return ['descripcion' => $strNewDescription, 'id_requisition' => $request->input('id_requisition_cat')];
+
     }
 
     public function getMedia(Request $request){
