@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class RequisitionDescription extends Model
 {
     public $timestamps = false;
+    protected $primaryKey = 'id_requisition_description';
     protected $fillable = ['description', 'created_at'];
 
     /* RELATIONSHIPS - BEGIN */
@@ -33,6 +34,6 @@ class RequisitionDescription extends Model
     }
 
     public function delete() {
-        return false;
+        return parent::delete();
     }
 }

@@ -30,5 +30,6 @@ Route::group([ 'prefix' => 'panel',
     Route::post('requisicion/editarDescripcion', ['as' => 'edit-description', 'uses' => 'RequisitionsController@editDescription']);
     Route::get('requisicion/deleteData', 'RequisitionsController@deleteData');
     Route::post('requisicion/media', 'RequisitionsController@storeMedia')->name('sites.media');
+    Route::get('requisicion/deleteRequisition/{id_requisition}', 'RequisitionsController@deleteRequisition')->name('requisition.delete');
     Route::get('requisicion/getmedia/', 'RequisitionsController@getMedia');
 });

@@ -305,6 +305,40 @@ class RequisitionsController extends Controller
         return ['fotos' => $stringFoto];
     }
 
+    public function deleteRequisition($id_requisition){
+
+        $requisitionData = RequisitionData::where('id_requisition', $id_requisition)->get();
+        $requisitionMedia = RequisitionMedia::where('id_requisition', $id_requisition)->get();
+        $requisitionDescription = RequisitionDescription::where('id_requisition', $id_requisition)->get();
+
+        if (sizeof($requisitionData) > 0) {
+            foreach ($requisitionData as $reqData) {
+                $reqData->delete();
+            }
+        }
+
+        if (sizeof($requisitionMedia) > 0) {
+            foreach ($requisitionMedia as $reqMedia) {
+                $reqMedia->delete();
+            }
+        }
+
+        if (sizeof($requisitionDescription) > 0) {
+            foreach ($requisitionDescription as $reqDescription) {
+                $reqDescription->delete();
+            }
+        }
+
+        Requisition::where('id_requisition', $id_requisition)->delete();
+
+        return redirect('panel/requisiciones');
+    }
+
+    /*public function copyRequisition($id_requisition) {
+
+        return redirect('panel/requisiciones');
+    }*/
+
     public function generatePDF($id_requisition) {
     
         $objRequisition = Requisition::where('id_requisition', $id_requisition)->first();
